@@ -68,8 +68,7 @@ func main() {
 
 	defer bw.Flush()
 
-	var totalBytes int64
-	var misses int64
+	var totalBytes, misses int64
 
 	for _, f := range r.File {
 		_, ok := members[f.Name]
@@ -85,8 +84,8 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		totalBytes += n
 		rc.Close()
+		totalBytes += n
 	}
 
 	if *verbose {
