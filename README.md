@@ -1,12 +1,12 @@
 # unzippa
-A faster version of a special unzip use case.
+A faster version of a special [unzip](https://linux.die.net/man/1/unzip) use case.
 
 ![](flow.png)
 
 Usage
 -----
 
-Where with vanilla unzip you would write:
+Where with vanilla [unzip](https://linux.die.net/man/1/unzip) you would write:
 
 ```shell
 $ unzip -p <archive> <member> <member> <member> ...
