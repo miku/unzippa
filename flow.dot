@@ -1,18 +1,18 @@
 digraph {
     rankdir="LR";
+
     graph [fontname="helvetica", fontsize=12];
     node [fontname="helvetica", fontsize=10];
-    edge [fontname="helvetica", fontsize=12];
+    edge [fontname="helvetica", fontsize=10];
 
-    start[shape="box", style="rounded", label="I want to extract\nmembers from a zip file."];
+    start [shape="plaintext", style="rounded", label="I want to extract\nmembers from a zip file."];
     
-    fewlarge[shape="diamond", style="", label="Do you have a few\nlarge files zip files\nwith tens\nof thousands\nof members?"];
-    manysmall[shape="diamond", style="", label="Do you have\nmany small files\nwith a few\ndozen members?"];
-    extractsome[shape="diamond", style="", label="Do you need\nto extract many\nmembers but\nnot all?"];
+    fewlarge [shape="box", label="Do you have a few\nlarge files zip files\nwith tens\nof thousands\nof members?"];
+    manysmall [shape="box", label="Do you have\nmany small files\nwith a few\ndozen members?"];
+    extractsome [shape="box", label="Do you need\nto extract many\nmembers but\nnot all?"];
 
-
-    end[shape="box", style="rounded", label="Use vanilla unzip."];
-    unzippa[shape="box", style="rounded", label="Maybe unzippa is faster."];
+    end [shape="plaintext", style="rounded", label="Use vanilla unzip."];
+    unzippa [shape="plaintext", style="rounded", label="Maybe unzippa is faster."];
 
     {
         rank=same; start; fewlarge; manysmall; end;
