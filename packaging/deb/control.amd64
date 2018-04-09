@@ -1,0 +1,8 @@
+Package: unzippa
+Version: 0.1.2
+Section: utils
+Priority: optional
+Architecture: amd64
+Depends: libc6 (>= 2.12)
+Maintainer: Martin Czygan <martin.czygan@uni-leipzig.de>
+Description: Unzip members of a zipfile faster than unzip.
