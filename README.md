@@ -27,7 +27,7 @@ would otherwise be expanded or modified by the operating system.
 This is the gap, that `unzippa` fills:
 
 ```shell
-$ unzippa -p -m <members-file> <archive>
+$ unzippa [-o output.file] -m <members-file> <archive>
 ```
 
 This attempts to extract all members given in *<members-file>*, one per line,
