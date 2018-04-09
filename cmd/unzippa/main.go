@@ -62,11 +62,11 @@ func main() {
 		}
 		defer output.Close()
 		bw = bufio.NewWriter(output)
-		defer bw.Flush()
 	} else {
 		bw = bufio.NewWriter(os.Stdout)
-		defer bw.Flush()
 	}
+
+	defer bw.Flush()
 
 	var totalBytes int64
 	var misses int64
