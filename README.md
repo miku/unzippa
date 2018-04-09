@@ -38,8 +38,8 @@ stdout is used, optionally an output file can be set via -o flag.
 Performance
 -----------
 
-A fake fixtures: Zipfile with 100000, with 10000 entries to extract. In this
-very special case, unzippa seems about 150x faster.
+A fake file: Zipfile with 100000 files, and 10000 entries to extract. In this
+very special case, unzippa seems about 150x faster than plain unzip.
 
 ```shell
 $ unzip -l fixtures/fake.zip | sed '1,3d;$d' | sed '$d' | wc -l
