@@ -1,6 +1,6 @@
 Summary:    Unzip members of a zipfile faster than unzip.
 Name:       unzippa
-Version:    0.1.2
+Version:    0.1.3
 Release:    0
 License:    GPL
 BuildArch:  x86_64
