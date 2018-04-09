@@ -20,6 +20,8 @@ clean:
 	rm -f unzippa
 	rm -f fixtures/fake.zip
 	rm -f fixtures/fake.txt
+	rm -f $(PKGNAME)_*deb
+	rm -f $(PKGNAME)-*rpm
 
 deb: $(TARGETS)
 	mkdir -p packaging/deb/$(PKGNAME)/usr/sbin
