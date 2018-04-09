@@ -33,7 +33,7 @@ with zipfile.ZipFile('fake.zip', 'w') as zf:
     for i in range(N):
         name = 'file-%s.txt' % i
         content = 'hello from file #%s\n' % i
-        zf.writestr(name, content, zipfile.ZIP_STORED)
+        zf.writestr(name, content, zipfile.ZIP_DEFLATED)
 
 SAMPLE_SIZE = int(N / 10)
 
