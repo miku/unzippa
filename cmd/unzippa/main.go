@@ -1,52 +1,78 @@
 package main
 
 import (
+	"archive/zip"
 	"bufio"
 	"flag"
+	"fmt"
 	"io"
 	"log"
 	"os"
-	"strings"
+
+	"github.com/miku/unzippa"
 )
 
-var membersFile = flag.String("m", "", "file to members to extract, one per line")
+var (
+	membersFile = flag.String("m", "", "file to members to extract, one per line")
+	version     = flag.Bool("version", false, "show version")
+	outputFile  = flag.String("o", "", "output filename")
+)
 
 func main() {
 	flag.Parse()
+
+	if *version {
+		fmt.Println(unzippa.Version)
+		os.Exit(0)
+	}
 
 	if flag.NArg() == 0 {
 		log.Fatal("zip file required")
 	}
 
-	members := make(map[string]bool)
+	if *membersFile == "" {
+		log.Fatal("specify a file with members to extract via -m")
+	}
 
-	f, err := os.Open(*membersFile)
+	members, err := unzippa.ReadLinesToSet(*membersFile)
 	if err != nil {
 		log.Fatal(err)
 	}
-	br := bufio.NewReader(f)
 
-	for {
-		line, err := br.ReadString('\n')
-		if err == io.EOF {
-			break
-		}
+	r, err := zip.OpenReader(flag.Arg(0))
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer r.Close()
+
+	var bw *bufio.Writer
+
+	if *outputFile != "" {
+		output, err := os.Create(*outputFile)
 		if err != nil {
 			log.Fatal(err)
 		}
-		line = strings.TrimSpace(line)
-		members[line] = true
+		defer output.Close()
+		bw = bufio.NewWriter(output)
+		defer bw.Flush()
+	} else {
+		bw = bufio.NewWriter(os.Stdout)
+		defer bw.Flush()
 	}
-	if err := f.Close(); err != nil {
-		log.Fatal(err)
+
+	for _, f := range r.File {
+		_, ok := members[f.Name]
+		if !ok {
+			continue
+		}
+		rc, err := f.Open()
+		if err != nil {
+			log.Fatal(err)
+		}
+		_, err = io.Copy(bw, rc)
+		if err != nil {
+			log.Fatal(err)
+		}
+		rc.Close()
 	}
-	log.Printf("extracting %d members", len(members))
-
-	// r, err := zip.OpenReader(flag.Arg(0))
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-	// defer r.Close()
-
-	// for _, f := range r.File {}
 }
