@@ -8,12 +8,14 @@ import (
 	"io"
 	"log"
 	"os"
+	"time"
 
 	"github.com/miku/unzippa"
 )
 
 var (
 	membersFile = flag.String("m", "", "file to members to extract, one per line")
+	verbose     = flag.Bool("v", false, "verbose output")
 	version     = flag.Bool("version", false, "show version")
 	outputFile  = flag.String("o", "", "output filename")
 )
@@ -34,9 +36,15 @@ func main() {
 		log.Fatal("specify a file with members to extract via -m")
 	}
 
+	started := time.Now()
+
 	members, err := unzippa.ReadLinesToSet(*membersFile)
 	if err != nil {
 		log.Fatal(err)
+	}
+
+	if *verbose {
+		log.Printf("marked %d filenames for extraction", len(members))
 	}
 
 	r, err := zip.OpenReader(flag.Arg(0))
@@ -60,19 +68,29 @@ func main() {
 		defer bw.Flush()
 	}
 
+	var totalBytes int64
+	var misses int64
+
 	for _, f := range r.File {
 		_, ok := members[f.Name]
 		if !ok {
+			misses++
 			continue
 		}
 		rc, err := f.Open()
 		if err != nil {
 			log.Fatal(err)
 		}
-		_, err = io.Copy(bw, rc)
+		n, err := io.Copy(bw, rc)
 		if err != nil {
 			log.Fatal(err)
 		}
+		totalBytes += n
 		rc.Close()
+	}
+
+	if *verbose {
+		log.Printf("extracted %d bytes from %d/%d files in %s",
+			totalBytes, len(members), int64(len(members))+misses, time.Since(started))
 	}
 }
