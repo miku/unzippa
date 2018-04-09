@@ -6,9 +6,9 @@ digraph {
 
     start[shape="box", style="rounded", label="I want to extract\nmembers from a zip file."];
     
-    fewlarge[shape="diamond", style="", label="Do you have a few\nlarge files zip files\nwith tens of thousands\nof members?"];
+    fewlarge[shape="diamond", style="", label="Do you have a few\nlarge files zip files\nwith tens\nof thousands\nof members?"];
     manysmall[shape="diamond", style="", label="Do you have\nmany small files\nwith a few\ndozen members?"];
-    extractsome[shape="diamond", style="", label="Do you need\nto extract many members\nbut not all?"];
+    extractsome[shape="diamond", style="", label="Do you need\nto extract many\nmembers but\nnot all?"];
 
 
     end[shape="box", style="rounded", label="Use vanilla unzip."];
