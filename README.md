@@ -30,9 +30,9 @@ This is the gap, that `unzippa` fills:
 $ unzippa -m <members-file> <archive>
 ```
 
-This attempts to extract all members given in *<members-file>*, one per line, to
-stdout. This will work with hundreds or thousands of members. By default, stdout
-is used, optionally an output file can be set via -o flag.
+This attempts to extract all members given in *members-file*, one per line, to
+stdout. This will work with hundreds or thousands of members. By default,
+stdout is used, optionally an output file can be set via -o flag.
 
 Performance
 -----------
