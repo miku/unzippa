@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-// ReadLinesToSet reads lines of a file into a set like hash map.
+// ReadLinesToSet reads non-empty lines of a file into a set like hash map.
 func ReadLinesToSet(filename string) (map[string]bool, error) {
 	result := make(map[string]bool)
 
