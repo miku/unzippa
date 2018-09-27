@@ -23,6 +23,7 @@ Unzip members of a zipfile faster than unzip.
 
 mkdir -p $RPM_BUILD_ROOT/usr/local/sbin
 install -m 755 unzippa $RPM_BUILD_ROOT/usr/local/sbin
+install -m 755 unzippall $RPM_BUILD_ROOT/usr/local/sbin
 
 %post
 
@@ -35,6 +36,7 @@ rm -rf %{_topdir}/BUILD/%{name}
 %defattr(-,root,root)
 
 /usr/local/sbin/unzippa
+/usr/local/sbin/unzippall
 
 %changelog
 

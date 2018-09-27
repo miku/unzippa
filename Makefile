@@ -1,4 +1,4 @@
-TARGETS = unzippa
+TARGETS = unzippa unzippall
 PKGNAME = unzippa
 ARCH = $$(dpkg --print-architecture)
 
