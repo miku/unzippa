@@ -62,8 +62,8 @@ Misc
 
 An executable `unzippall` is included in package since 0.1.4.
 
-The unzippall tools takes a list of files and extracts them to stdout in
-parallel. Order is not preserved.
+The unzippall tool takes a list of filenames and extracts them to stdout in
+parallel. Works in parallel, order is not preserved.
 
 Usage:
 
@@ -72,5 +72,5 @@ $ find /tmp/updates -type f -name "*zip" | unzippall -i '.*xml' > data.file
 ```
 
 Performance: Finding 45000 files with `find`, about 2s. Finding files and
-running `unzip -p` on each of them: 13min. Using unzippall on the same fileset:
-2min.
+running `unzip -p` on each of them: 13min. Using `unzippall` on the same
+fileset: about 2min.
