@@ -68,9 +68,9 @@ parallel. Order is not preserved.
 Usage:
 
 ```
-$ find /tmp/updates -type f -name "*zip" | unzippall > data.file
+$ find /tmp/updates -type f -name "*zip" | unzippall -i '.*xml' > data.file
 ```
 
 Performance: Finding 45000 files with `find`, about 2s. Finding files and
 running `unzip -p` on each of them: 13min. Using unzippall on the same fileset:
-4min.
+2min.
