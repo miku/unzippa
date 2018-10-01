@@ -110,7 +110,7 @@ func (f *ArrayFlags) Set(value string) error {
 
 func main() {
 	var includePatterns ArrayFlags
-	flag.Var(&includePatterns, "i", "include name matching regular expression (repeatable)")
+	flag.Var(&includePatterns, "i", "only include name matching regular expression (repeatable)")
 	flag.Parse()
 
 	var includes []*regexp.Regexp
