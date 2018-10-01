@@ -5,6 +5,10 @@
 //
 //     $ find /tmp/updates -type f -name "*zip" | unzippall > data.file
 //
+// Only include certain files:
+//
+//     $ find /tmp/updates -type f -name "*zip" | unzippall -i '.*xml' > data.file
+//
 package main
 
 import (
