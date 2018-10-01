@@ -10,12 +10,19 @@ package main
 import (
 	"archive/zip"
 	"bytes"
+	"flag"
 	"io"
 	"log"
 	"os"
+	"runtime"
 	"strings"
 
 	"github.com/miku/parallel"
+)
+
+var (
+	numWorkers = flag.Int("w", runtime.NumCPU(), "number of workers")
+	batchSize  = flag.Int("s", 100, "batch size")
 )
 
 func decompressFile(b []byte) ([]byte, error) {
@@ -44,7 +51,12 @@ func decompressFile(b []byte) ([]byte, error) {
 }
 
 func main() {
+	flag.Parse()
+
 	p := parallel.NewProcessor(os.Stdin, os.Stdout, decompressFile)
+	p.NumWorkers = *numWorkers
+	p.BatchSize = *batchSize
+
 	if err := p.Run(); err != nil {
 		log.Fatal(err)
 	}
