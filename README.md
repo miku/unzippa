@@ -72,4 +72,5 @@ $ find /tmp/updates -type f -name "*zip" | unzippall > data.file
 ```
 
 Performance: Finding 45000 files with `find`, about 2s. Finding files and
-running `unzip -p` on each of them: ...s. Using unzippall on the same fileset: ...s.
+running `unzip -p` on each of them: 13min. Using unzippall on the same fileset:
+4min.
