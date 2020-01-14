@@ -31,6 +31,7 @@ var (
 	numWorkers = flag.Int("w", runtime.NumCPU(), "number of workers")
 	batchSize  = flag.Int("s", 100, "batch size")
 	verbose    = flag.Bool("v", false, "be verbose")
+	bestEffort = flag.Bool("b", false, "best effort, skip error")
 )
 
 // Decompressor keeps options for decompression. Empty include will allow all
@@ -42,10 +43,6 @@ type Decompressor struct {
 		NumExtracted int64 `json:"extracted"`
 		NumEntries   int64 `json:"entries"`
 	}
-}
-
-func (decomp *Decompressor) ResetStats() {
-
 }
 
 // includesFilename return true, if this decompressor is configured to
@@ -72,7 +69,12 @@ func (decomp *Decompressor) decompressFilename(name []byte) ([]byte, error) {
 	filename := strings.TrimSpace(string(name))
 	r, err := zip.OpenReader(filename)
 	if err != nil {
-		return nil, err
+		if *bestEffort {
+			log.Printf("skipping: %s, %s", name, err)
+			return nil, nil
+		} else {
+			return nil, err
+		}
 	}
 	defer r.Close()
 	var buf bytes.Buffer
@@ -85,11 +87,21 @@ func (decomp *Decompressor) decompressFilename(name []byte) ([]byte, error) {
 		}
 		rc, err := f.Open()
 		if err != nil {
-			return nil, err
+			if *bestEffort {
+				log.Printf("skipping: %s, %s", name, err)
+				return nil, nil
+			} else {
+				return nil, err
+			}
 		}
 		_, err = io.Copy(&buf, rc)
 		if err != nil {
-			return nil, err
+			if *bestEffort {
+				log.Printf("skipping: %s, %s", name, err)
+				return nil, nil
+			} else {
+				return nil, err
+			}
 		}
 		rc.Close()
 		io.WriteString(&buf, "\n")
