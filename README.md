@@ -57,13 +57,13 @@ user    0m0.136s
 sys     0m0.038s
 ```
 
-Misc
-----
+The unzippall
+-------------
 
 An executable `unzippall` is included in package since 0.1.4.
 
-The unzippall tool takes a list of filenames and extracts them to stdout in
-parallel. Works in parallel, order is not preserved.
+The unzippall tool takes a list of filenames (e.g. from stdin) and extracts them to stdout in
+parallel. Super fast, order is not preserved.
 
 Usage:
 
