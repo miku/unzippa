@@ -17,7 +17,7 @@ fixtures/fake.zip:
 	python fixtures/fake.py && mv fake.zip fixtures/fake.zip && mv fake.txt fixtures/fake.txt
 
 clean:
-	rm -f unzippa
+	rm -f $(TARGETS)
 	rm -f fixtures/fake.zip
 	rm -f fixtures/fake.txt
 	rm -f $(PKGNAME)_*deb
